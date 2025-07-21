@@ -16,7 +16,7 @@ public class Producers {
 
         Properties properties = new Properties();
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092"); //broker de conexion de kafka
-        properties.put(ProducerConfig.ACKS_CONFIG, "1"); //acknowledge de que los nodos recibieron el mensaje
+        properties.put(ProducerConfig.ACKS_CONFIG, "all"); //acknowledge de que los nodos recibieron el mensaje
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,"org.apache.kafka.common.serialization.StringSerializer");
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,"org.apache.kafka.common.serialization.StringSerializer");
 
@@ -24,6 +24,9 @@ public class Producers {
         properties.put(ProducerConfig.LINGER_MS_CONFIG, "20");
         properties.put(ProducerConfig.BATCH_SIZE_CONFIG,"1000");
         properties.put(ProducerConfig.BUFFER_MEMORY_CONFIG,"20000");
+
+        //se asegura que los mensajes no se dupliquen
+        properties.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG,"true");
 
         long startTime = System.currentTimeMillis();
 
